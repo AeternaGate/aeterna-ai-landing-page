@@ -27,7 +27,8 @@ Professional landing page for Aeterna AI services targeting small businesses.
 ## Environment Variables
 
 - `GOOGLE_SHEET_ID`: Your Google Sheet ID
-- `GOOGLE_SERVICE_ACCOUNT_KEY`: Path to your Google service account key JSON file
+
+Additionally, place your Google service account key in a file named `google-service-account.json` in the root directory of the project.
 
 ## Contributing
 
