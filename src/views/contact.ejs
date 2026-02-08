@@ -16,10 +16,10 @@
             <div class="logo">Aeterna<span class="accent">AI</span></div>
             <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#methodology">Methodology</a></li>
-                <li><a href="#success">Success Stories</a></li>
-                <li><a href="/" class="cta-button">Contact</a></li>
+                <li><a href="/#services">Services</a></li>
+                <li><a href="/#methodology">Methodology</a></li>
+                <li><a href="/#success">Success Stories</a></li>
+                <li><a href="/contact" class="cta-button active">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -116,10 +116,23 @@
                             formMessage.innerHTML = '<p class="success">Thank you! Your message has been sent successfully. Our team will contact you shortly.</p>';
                             contactForm.reset();
                         } else {
-                            formMessage.innerHTML = `<p class="error">Error: ${result.error || 'Failed to send message'}</p>`;
+                            // Handle different error statuses appropriately
+                            if(response.status === 400) {
+                                // Validation error
+                                formMessage.innerHTML = `<p class="error">Validation Error: ${result.error || 'Please fill in all required fields'}</p>`;
+                            } else {
+                                // Other server errors
+                                formMessage.innerHTML = `<p class="error">Error: ${result.error || 'Failed to send message. Please try again.'}</p>`;
+                            }
                         }
                     } catch (error) {
-                        formMessage.innerHTML = '<p class="error">An error occurred while sending your message. Please try again.</p>';
+                        console.error('Form submission error:', error);
+                        // Check if it's a network error vs other types of errors
+                        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                            formMessage.innerHTML = '<p class="error">Network error: Unable to connect to the server. Please check your internet connection and try again later.</p>';
+                        } else {
+                            formMessage.innerHTML = `<p class="error">An error occurred while sending your message: ${error.message || 'Please try again.'}</p>`;
+                        }
                     } finally {
                         // Restore button state
                         const submitButton = contactForm.querySelector('button[type="submit"]');

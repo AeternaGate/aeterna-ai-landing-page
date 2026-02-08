@@ -1,11 +1,27 @@
 const express = require("express");
 const path = require("path");
+const fs = require("fs");
 const { google } = require("googleapis");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Import environment variables
 require("dotenv").config();
+
+// Load Google service account key from JSON file
+let GOOGLE_SERVICE_ACCOUNT_KEY = null;
+try {
+  const serviceAccountPath = path.join(
+    __dirname,
+    "google-service-account.json",
+  );
+  if (fs.existsSync(serviceAccountPath)) {
+    const serviceAccountData = fs.readFileSync(serviceAccountPath, "utf8");
+    GOOGLE_SERVICE_ACCOUNT_KEY = JSON.parse(serviceAccountData);
+  }
+} catch (error) {
+  console.error("Error loading Google service account key:", error.message);
+}
 
 // Set view engine to EJS
 app.set("view engine", "ejs");
@@ -63,31 +79,60 @@ app.post("/api/contact", async (req, res) => {
 
 // Helper function to append data to Google Sheet
 async function appendToGoogleSheet(row) {
-  // Check if required environment variables are set
-  if (!process.env.GOOGLE_SHEET_ID || !process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
-    throw new Error("Missing Google Sheets configuration");
+  try {
+    // Check if required environment variables are set
+    if (!process.env.GOOGLE_SHEET_ID || !GOOGLE_SERVICE_ACCOUNT_KEY) {
+      // Log the data to console if Google Sheets is not configured
+      console.log("Google Sheets not configured. Form data received:", {
+        timestamp: row[0],
+        name: row[1],
+        email: row[2],
+        company: row[3],
+        phone: row[4],
+        service: row[5],
+        message: row[6],
+      });
+
+      // In a real implementation, you might want to save to a database or email
+      // For now, we'll just log and return to simulate successful submission
+      return;
+    }
+
+    // Use the loaded service account key
+    const credentials = GOOGLE_SERVICE_ACCOUNT_KEY;
+
+    // Authenticate with Google Sheets API
+    const auth = new google.auth.GoogleAuth({
+      credentials: credentials,
+      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+    });
+
+    const sheets = google.sheets({ version: "v4", auth });
+
+    // Append the row to the Google Sheet
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEET_ID,
+      range: "A1", // This will append to the next available row
+      valueInputOption: "RAW",
+      resource: {
+        values: [row],
+      },
+    });
+  } catch (error) {
+    console.error("Error in appendToGoogleSheet:", error);
+    // Still log the data even if Google Sheets fails
+    console.log("Form submission had issues but data preserved:", {
+      timestamp: row[0],
+      name: row[1],
+      email: row[2],
+      company: row[3],
+      phone: row[4],
+      service: row[5],
+      message: row[6],
+    });
+    // Re-throw the error to be handled by the calling function
+    throw error;
   }
-
-  // Parse the service account key from environment variable
-  const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
-
-  // Authenticate with Google Sheets API
-  const auth = new google.auth.GoogleAuth({
-    credentials: credentials,
-    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-  });
-
-  const sheets = google.sheets({ version: "v4", auth });
-
-  // Append the row to the Google Sheet
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: process.env.GOOGLE_SHEET_ID,
-    range: "A1", // This will append to the next available row
-    valueInputOption: "RAW",
-    resource: {
-      values: [row],
-    },
-  });
 }
 
 // Start server

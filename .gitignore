@@ -3,6 +3,7 @@ node_modules/
 
 # Environment variables
 .env
+google-service-account.json
 
 # Logs
 *.log

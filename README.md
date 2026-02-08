@@ -147,5 +147,5 @@ For support, please contact the Aeterna AI team at [support@aeternai.com](mailto
 ---
 
 <p align="center">
-  Made with ❤️ by the Aeterna AI Team
+  Made with ❤️ by the Aeterna Gate
 </p>
