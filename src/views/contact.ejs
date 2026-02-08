@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | Aeterna AI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Neural Field Background -->
+    <div id="neural-field"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Aeterna<span class="accent">AI</span></div>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#methodology">Methodology</a></li>
+                <li><a href="#success">Success Stories</a></li>
+                <li><a href="/" class="cta-button">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>Get in Touch with Aeterna AI</h2>
+            <p>Fill out the form below and our team will reach out to you shortly.</p>
+
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company Name</label>
+                    <input type="text" id="company" name="company">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+
+                <div class="form-group">
+                    <label for="service">Service Interest</label>
+                    <select id="service" name="service">
+                        <option value="">Select a service</option>
+                        <option value="ai-integration">AI Integration</option>
+                        <option value="product-development">AI Product Development</option>
+                        <option value="consultation">AI Strategy Consultation</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Tell us about your project or questions..."></textarea>
+                </div>
+
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+
+            <div id="formMessage" class="form-message"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Aeterna AI. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+
+            if(contactForm) {
+                contactForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const formData = new FormData(contactForm);
+                    const data = Object.fromEntries(formData);
+
+                    try {
+                        // Show loading state
+                        const submitButton = contactForm.querySelector('button[type="submit"]');
+                        const originalText = submitButton.textContent;
+                        submitButton.textContent = 'Sending...';
+                        submitButton.disabled = true;
+
+                        // Send form data to server endpoint
+                        const response = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(data)
+                        });
+
+                        const result = await response.json();
+
+                        if(response.ok) {
+                            formMessage.innerHTML = '<p class="success">Thank you! Your message has been sent successfully. Our team will contact you shortly.</p>';
+                            contactForm.reset();
+                        } else {
+                            formMessage.innerHTML = `<p class="error">Error: ${result.error || 'Failed to send message'}</p>`;
+                        }
+                    } catch (error) {
+                        formMessage.innerHTML = '<p class="error">An error occurred while sending your message. Please try again.</p>';
+                    } finally {
+                        // Restore button state
+                        const submitButton = contactForm.querySelector('button[type="submit"]');
+                        if(submitButton) {
+                            submitButton.textContent = 'Send Message';
+                            submitButton.disabled = false;
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

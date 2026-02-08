@@ -1,0 +1,29 @@
+{
+  "name": "aeterna-ai-landing-page",
+  "version": "1.0.0",
+  "description": "Professional landing page for Aeterna AI services targeting small businesses",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "ai",
+    "aeterna-ai",
+    "landing-page",
+    "express",
+    "nodejs",
+    "small-business"
+  ],
+  "author": "Aeterna AI Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "googleapis": "^126.0.1",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
