@@ -6,136 +6,120 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge" alt="License">
 </p>
 
-<p align="center">
-  <em>Transform your business with cutting-edge AI solutions designed for small businesses</em>
-</p>
+<p align="center"><em>Transform your business with cutting-edge AI solutions designed for small businesses</em></p>
 
 ---
 
-## 🚀 Overview
+## 🌟 Overview
 
-Aeterna AI is a professional landing page for AI services targeting small business owners, built with Node.js, Express, and EJS. The platform showcases advanced AI integration and product development services with an elegant interface featuring interactive elements and seamless user experience.
+**Aeterna AI** — профессиональный лендинг AI-сервисов для владельцев малого бизнеса. Сайт построен на Node.js, Express и EJS и рассказывает об AI-интеграциях и разработке продуктов с элегантным интерфейсом и интерактивными элементами.
 
 ## ✨ Key Features
 
-- 🌐 **Modern Responsive Design** - Fully responsive layout optimized for all device sizes
-- 📋 **Contact Form Integration** - Direct connection to Google Sheets API
-- ⚡ **Fast Loading Times** - Optimized for performance and user experience
-- 🎨 **Clean UI/UX Design** - Professional layout optimized for conversions
-- 🔒 **Secure Data Handling** - Proper validation and secure transmission of form data
+- 📱 **Modern Responsive Design** — полностью адаптивная вёрстка для всех устройств
+- 📩 **Contact Form Integration** — прямая интеграция с Google Sheets API
+- ⚡ **Fast Loading Times** — оптимизация производительности
+- 🎨 **Clean UI/UX Design** — профессиональный макет, ориентированный на конверсию
+- 🔒 **Secure Data Handling** — валидация и безопасная передача данных формы
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 | Technology | Purpose |
 |------------|---------|
-| [Node.js](https://nodejs.org/) | Server-side runtime environment |
-| [Express.js](https://expressjs.com/) | Web application framework |
-| [EJS](https://ejs.co/) | Embedded JavaScript templating |
-| [Vanilla JS](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Client-side interactivity |
-| [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) | Styling and responsive design |
-| [Google Sheets API](https://developers.google.com/sheets) | Data collection and storage |
+| [Node.js](https://nodejs.org/) | Серверный рантайм |
+| [Express.js](https://expressjs.com/) | Веб-фреймворк |
+| [EJS](https://ejs.co/) | Шаблонизация |
+| [Vanilla JS](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Клиентская логика |
+| [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS) | Стилизация и адаптив |
+| [Google Sheets API](https://developers.google.com/sheets) | Сбор и хранение данных |
 
-## 📦 Installation
+## 🚀 Установка и запуск
 
-### Prerequisites
-- [Node.js](https://nodejs.org/) (v14 or higher)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+### Требования
+- [Node.js](https://nodejs.org/) v14+
+- [npm](https://www.npmjs.com/) или [yarn](https://yarnpkg.com/)
 
-### Setup Instructions
+### Шаги
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd aeterna-ai-landing-page
-   ```
+```bash
+# 1. Клонируйте репозиторий
+git clone <repository-url>
+cd aeterna-ai-landing-page
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# 2. Установите зависимости
+npm install
 
-3. **Configure environment variables**
-   Create a `.env` file in the root directory with the following:
-   ```env
-   GOOGLE_SHEET_ID=your_google_sheet_id_here
-   ```
+# 3. Настройте переменные окружения
+#    Создайте .env в корне проекта:
+#    GOOGLE_SHEET_ID=your_google_sheet_id_here
 
-4. **Set up Google Service Account**
-   Place your Google service account key in a file named `google-service-account.json` in the root directory of the project.
+# 4. Поместите ключ сервисного аккаунта Google
+#    в файл google-service-account.json в корне проекта
 
-5. **Start the development server**
-   ```bash
-   npm run dev
-   ```
-   
-   Or for production:
-   ```bash
-   npm start
-   ```
+# 5. Запустите dev-сервер
+npm run dev
 
-6. **Visit the application**
-   Open your browser and navigate to `http://localhost:3000`
+# Или в продакшене:
+npm start
+```
 
-## 📁 Project Structure
+Откройте [http://localhost:3000](http://localhost:3000).
+
+## 📁 Структура проекта
 
 ```
 aeterna-ai-landing-page/
-├── server.js                    # Express server configuration
-├── package.json                # Project metadata and dependencies
-├── .env                        # Environment variables (not tracked)
-├── google-service-account.json # Google service account credentials (not tracked)
-├── .gitignore                  # Files and directories to ignore
-├── README.md                   # Project documentation
+├── server.js                    # Конфигурация Express-сервера
+├── package.json
+├── .env                         # Переменные окружения (не в git)
+├── google-service-account.json  # Ключи Google (не в git)
 ├── src/
 │   ├── public/
 │   │   ├── css/
-│   │   │   └── style.css      # Main stylesheet with responsive design
+│   │   │   └── style.css        # Основные стили
 │   │   └── js/
-│   │       └── main.js        # Client-side JavaScript functionality
+│   │       └── main.js          # Клиентская логика
 │   └── views/
-│       ├── index.ejs          # Main landing page template
-│       └── contact.ejs        # Contact form page template
-└── node_modules/              # Dependencies (not tracked)
+│       ├── index.ejs            # Главная страница
+│       └── contact.ejs          # Страница контактов
+└── node_modules/                # Зависимости (не в git)
 ```
 
-## 🔧 Key Functionality
+## 🔧 Ключевая функциональность
 
-### Contact Form Integration
-- Form validation and submission handling
-- Direct integration with Google Sheets API
-- Secure data transmission with environment-based configuration
-- Success/error messaging for user feedback
+### Контактная форма
+- Валидация и обработка отправки формы
+- Интеграция с Google Sheets API
+- Безопасная передача данных на основе окружения
+- Сообщения об успехе/ошибке
 
-### Responsive Design
-- Mobile-first approach with media queries
-- Flexible layouts using CSS Grid and Flexbox
-- Optimized touch targets for mobile devices
-- Consistent experience across all screen sizes
+### Адаптивный дизайн
+- Mobile-first подход с media queries
+- CSS Grid и Flexbox
+- Оптимизированные touch-цели
 
-### Data Handling
-- Secure processing of form submissions
-- Proper validation of required fields
-- Error handling for API failures
-- Logging of form data for debugging purposes
+### Обработка данных
+- Безопасная обработка отправок
+- Валидация обязательных полей
+- Обработка ошибок API
+- Логирование для отладки
 
-## 🤝 Contributing
+## 🤝 Вклад в проект
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. Форкните репозиторий
+2. Создайте ветку (`git checkout -b feature/amazing-feature`)
+3. Закоммитьте изменения (`git commit -m 'Add amazing feature'`)
+4. Запушьте ветку (`git push origin feature/amazing-feature`)
+5. Откройте Pull Request
 
-## 📄 License
+## 📄 Лицензия
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Проект распространяется под лицензией MIT — см. файл [LICENSE](LICENSE).
 
-## 📞 Support
+## 📬 Поддержка
 
-For support, please contact the Aeterna AI team.
+По вопросам поддержки обращайтесь в команду Aeterna AI.
 
 ---
 
-<p align="center">
-  Made with ❤️ by the Aeterna Gate
-</p>
+<p align="center">Made with ❤ by Aeterna Gate</p>
